@@ -1,0 +1,142 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        -1420,
+        760
+      ],
+      "id": "922c2bb3-7cd0-404d-9bfa-8685ac752a97",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "jgsKnqlkhb5dYeo9",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1628,
+        540
+      ],
+      "id": "e0925521-36bd-462d-9415-002b6ac44847",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "mindcraft-gpt4o",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -1660,
+        760
+      ],
+      "id": "fe8bbd96-6b64-4de4-9dac-48b2a6e31659",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "L1tobIAI4Q02CbM7",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1880,
+        540
+      ],
+      "id": "011b304e-b592-4ad4-a757-0908c004a993",
+      "name": "When chat message received",
+      "webhookId": "37fbabf3-0dd6-4f3d-9df6-308af5e3d83c"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1540,
+        760
+      ],
+      "id": "ba003b76-0e9a-42fd-9eea-c36ed125a255",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9c6d86d3-fd7c-4ff7-9972-1c13ce804413",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9ca00c679ea290303d7d63c7ad273b8b9de910cb83cba85d00be3a62aa492513"
+  },
+  "id": "eFomqAH3aYuRu8T1",
+  "tags": []
+}
